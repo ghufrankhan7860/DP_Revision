@@ -88,6 +88,7 @@ int minimumInsertions(string &s)
 }
 
 int main(){
-    
+    string s = "abca";
+    cout<<minimumInsertions(s)<<endl;
     return 0;
 }

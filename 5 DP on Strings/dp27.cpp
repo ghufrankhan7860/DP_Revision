@@ -79,9 +79,9 @@ int lcs(string &str1, string &str2){
     //  // reucrsive sol
     //  return solve1(str1, str2, 0, 0, 0);
 
-    // // memoization sol
-    // memset(dp, -1, sizeof(dp));
-    // return solve2(str1, str2, 0, 0, 0);
+    // memoization sol
+    memset(dp, -1, sizeof(dp));
+    return solve2(str1, str2, 0, 0, 0);
 
     // // bottom up solution
     // return solve3(str1, str2);
