@@ -14,6 +14,39 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// recursive solution
+int solve1(int i, int j, string &s1, string &s2){
+    if(i>=s1.size()) return s2.size()-j;
+    if(j>=s2.size()) return s1.size()-i;
+
+    int del = 1e9, ins = 1e9;
+
+    if(s1[i] != s2[j]){
+        del = solve1(i+1, j, s1, s2);
+        ins = solve1(i, j+1, s1, s2);
+        return 1 + min(del, ins);
+    }   
+    return solve1(i+1, j+1, s1, s2);
+}
+
+// memoization solution
+int dp[101][101];
+int solve2(int i, int j, string &s1, string &s2){
+    if(i>=s1.size()) return s2.size()-j;
+    if(j>=s2.size()) return s1.size()-i;
+
+    if(dp[i][j] != -1)  return dp[i][j];
+
+    int del = 1e9, ins = 1e9;
+
+    if(s1[i] != s2[j]){
+        del = solve2(i+1, j, s1, s2);
+        ins = solve2(i, j+1, s1, s2);
+        return dp[i][j] = 1 + min(del, ins);
+    }   
+    return dp[i][j] = solve2(i+1, j+1, s1, s2);
+}
+
 // bottom up solution
 int solve3(string &s1, string &s2){
     int m=s1.size(), n=s2.size();
@@ -59,16 +92,23 @@ int solve4(string &s1, string &s2){
 
 int canYouMake(string &s1, string &s2){
 
+    // // recursive sol
+    // return solve1(0, 0, s1, s2);
+
+    // memoization sol
+    memset(dp, -1, sizeof(dp));
+    return solve2(0, 0, s1, s2);
+
     // // bottomup dp solution
     // return solve3(s1, s2);
 
-    // bottomup dp->space optimisation solution
-    return solve4(s1, s2);
+    // // bottomup dp->space optimisation solution
+    // return solve4(s1, s2);
 }
 
 int main(){
-    string s1="tjlyk";
-    string s2="jlzy";
+    string s1="abcd";
+    string s2="anc";
     cout<<canYouMake(s1, s2)<<endl;
     return 0;
 }
